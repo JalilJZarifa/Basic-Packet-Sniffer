@@ -15,7 +15,7 @@ WinPcap or Npcap (Windows users)
 # Installation
 ## Clone the Repository:
 
-git clone https://github.com/<your-username>/packet-sniffer.git
+git clone https://github.com/JalilJZarifa/packet-sniffer.git
 ## Navigate to the Project Directory:
 
 cd packet-sniffer
