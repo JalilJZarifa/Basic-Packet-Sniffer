@@ -1,0 +1,24 @@
+from scapy.all import sniff
+from scapy.layers.inet import IP, TCP
+import datetime
+
+def packet_callback(packet):
+    if IP in packet and TCP in packet:
+        timestamp = datetime.datetime.now()
+        ip_src = packet[IP].src
+        ip_dst = packet[IP].dst
+        tcp_sport = packet[TCP].sport
+        tcp_dport = packet[TCP].dport
+        
+        # Prepare the log entry
+        log_entry = f"{timestamp} - TCP Packet: {ip_src}:{tcp_sport} -> {ip_dst}:{tcp_dport}\n"
+
+        # Write to file
+        with open("packet_log.txt", "a") as log_file:
+            log_file.write(log_entry)
+
+# Filter for TCP packets on port 80 (HTTP)
+filter_str = "tcp port 80"
+
+print("Starting packet capture on port 80 (HTTP)...")
+sniff(filter=filter_str, prn=packet_callback, store=False)
